@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--acc:#C9A35B;--acc-soft:#DCC081;--acc-rgb:201,163,91;--bg:#0F0D0B;--bg-deep:#0A0907;--panel:#16130F}
+  html{scroll-behavior:smooth}
+  body{background:#0F0D0B;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  ::selection{background:var(--acc);color:#0F0D0B}
+  @keyframes tb-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+
+<div id="tb-root" style="font-family:'Jost',sans-serif;color:#EDE4D2;background:var(--bg);overflow-x:hidden">
+ <div style="{{ pageStyle }}">
+
+  <div style="background:var(--bg-deep);color:var(--acc);font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;text-align:center;padding:9px 16px;font-weight:500;border-bottom:1px solid rgba(var(--acc-rgb),.14)">{{ announce }}</div>
+
+  <header style="position:sticky;top:0;z-index:40;background:rgba(15,13,11,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(var(--acc-rgb),.12)">
+    <nav style="max-width:1240px;margin:0 auto;padding:16px 36px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <a href="index.html" style="display:flex;align-items:center;gap:13px;text-decoration:none">
+        <span style="display:flex;align-items:center;font-family:'Playfair Display',serif;font-weight:600;font-size:24px;color:#E7D9BE;line-height:1;letter-spacing:.02em">T<span style="width:1px;height:24px;background:rgba(var(--acc-rgb),.55);margin:0 3px"></span>B</span>
+        <span style="font-family:'Jost',sans-serif;font-weight:500;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#9A8C73">Tasty&nbsp;Box</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:30px">
+        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+          <a href="{{ n.href }}" target="{{ n.target }}" rel="noopener" style="{{ n.style }}" style-hover="color:#E7D9BE">{{ n.label }}</a>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:18px">
+        <div style="position:relative;display:flex;align-items:center;border:1px solid rgba(var(--acc-rgb),.3);border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.08em">
+          <span style="{{ langPill }}"></span>
+          <span onClick="{{ setEs }}" style="position:relative;z-index:1;padding:5px 12px;cursor:pointer;transition:color .3s ease;color:{{ esColor }}">ES</span>
+          <span onClick="{{ setEn }}" style="position:relative;z-index:1;padding:5px 12px;cursor:pointer;transition:color .3s ease;color:{{ enColor }}">EN</span>
+        </div>
+        <a href="https://web.tbtastybox.com/" target="_blank" rel="noopener" style="text-decoration:none;color:#0F0D0B;background:var(--acc);font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:11px 22px;border-radius:999px" style-hover="background:var(--acc-soft)">{{ shopLabel }}</a>
+      </div>
+    </nav>
+  </header>
+
+  <section style="background:var(--bg-deep);border-bottom:1px solid rgba(var(--acc-rgb),.12)">
+    <div style="max-width:1240px;margin:0 auto;padding:72px 36px 60px">
+      <div data-reveal style="font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);margin-bottom:18px">{{ pageEyebrow }}</div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap">
+        <h1 data-reveal style="font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(40px,5vw,68px);line-height:1.02;letter-spacing:-.01em;color:#F6EFE0;max-width:620px">{{ pageTitle }}</h1>
+        <p data-reveal data-reveal-delay="80" style="font-size:16px;color:#A89A84;max-width:360px;line-height:1.6;font-weight:300">{{ pageSub }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1240px;margin:0 auto;padding:64px 36px 40px">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px">
+      <sc-for list="{{ boxes }}" as="b" hint-placeholder-count="4">
+        <div data-reveal data-reveal-delay="{{ b.delay }}" onMouseEnter="{{ zoomIn }}" onMouseLeave="{{ zoomOut }}" style="background:var(--panel);border:1px solid rgba(var(--acc-rgb),.14);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .4s ease,transform .4s ease" style-hover="border-color:rgba(var(--acc-rgb),.45);transform:translateY(-4px)">
+          <div style="position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--bg-deep)">
+            {{ b.imgEl }}
+            <span style="position:absolute;top:14px;left:14px;background:rgba(10,9,7,.82);backdrop-filter:blur(4px);color:var(--acc-soft);font-size:10.5px;font-weight:600;letter-spacing:.12em;padding:6px 11px;border-radius:999px;border:1px solid rgba(var(--acc-rgb),.3)">{{ b.ref }}</span>
+          </div>
+          <div style="padding:24px 22px 26px;display:flex;flex-direction:column;flex:1">
+            <h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:22px;letter-spacing:.01em;color:#F2EBDC;margin-bottom:10px">{{ b.name }}</h3>
+            <p style="font-size:13.5px;line-height:1.6;color:#A89A84;font-weight:300;margin-bottom:22px">{{ b.desc }}</p>
+            <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid rgba(var(--acc-rgb),.12)">
+              <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--acc-soft);line-height:1.1">{{ b.price }}</div>
+              <a href="{{ b.buyUrl }}" target="_blank" rel="noopener" style="text-decoration:none;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--bg-deep);background:var(--acc);padding:9px 16px;border-radius:999px;transition:background .3s ease" style-hover="background:var(--acc-soft)">{{ comprar }}</a>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1240px;margin:0 auto;padding:32px 36px 88px">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(var(--acc-rgb),.14);border-radius:6px;overflow:hidden">
+      <sc-for list="{{ perks }}" as="p" hint-placeholder-count="4">
+        <div data-reveal data-reveal-delay="{{ p.delay }}" style="padding:30px 28px;border-left:1px solid rgba(var(--acc-rgb),.12);background:var(--panel)">
+          <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--acc);margin-bottom:12px">{{ p.k }}</div>
+          <h3 style="font-size:15.5px;font-weight:600;color:#F2EBDC;margin-bottom:6px">{{ p.t }}</h3>
+          <p style="font-size:13.5px;line-height:1.55;color:#A89A84;font-weight:300">{{ p.d }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="background:var(--panel);border-top:1px solid rgba(var(--acc-rgb),.12);border-bottom:1px solid rgba(var(--acc-rgb),.12)">
+    <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;align-items:stretch">
+      <div data-reveal style="padding:80px 54px;display:flex;flex-direction:column;justify-content:center">
+        <div style="font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);margin-bottom:18px">{{ persEyebrow }}</div>
+        <h2 style="font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(30px,3.6vw,46px);line-height:1.08;color:#F6EFE0;margin-bottom:20px">{{ persTitle }}</h2>
+        <p style="font-size:16.5px;line-height:1.65;color:#B6A98F;font-weight:300;margin-bottom:30px;max-width:440px">{{ persSub }}</p>
+        <a href="personalizacion.html" style="align-self:flex-start;text-decoration:none;background:var(--acc);color:#0F0D0B;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:15px 28px;border-radius:999px" style-hover="background:var(--acc-soft)">{{ persCta }}</a>
+      </div>
+      <div style="position:relative;min-height:440px;overflow:hidden">
+        <img src="assets/personalizable.png" alt="{{ persTitle }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:var(--bg-deep);border-top:1px solid rgba(var(--acc-rgb),.14)">
+    <div style="max-width:1240px;margin:0 auto;padding:60px 36px 40px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px">
+      <div>
+        <div style="display:flex;align-items:center;gap:13px;margin-bottom:18px">
+          <span style="display:flex;align-items:center;font-family:'Playfair Display',serif;font-weight:600;font-size:23px;color:#E7D9BE;line-height:1">T<span style="width:1px;height:23px;background:rgba(var(--acc-rgb),.55);margin:0 3px"></span>B</span>
+          <span style="font-family:'Jost',sans-serif;font-weight:500;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#9A8C73">Tasty&nbsp;Box</span>
+        </div>
+        <p style="font-size:14.5px;line-height:1.62;color:#8E8167;font-weight:300;max-width:280px">{{ footerTagline }}</p>
+        <div style="display:flex;gap:12px;margin-top:22px">
+          <a href="https://www.instagram.com/tb_tastybox/" target="_blank" rel="noopener" aria-label="Instagram" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(var(--acc-rgb),.28);color:#B6A98F;text-decoration:none;transition:border-color .3s ease,color .3s ease" style-hover="border-color:rgba(var(--acc-rgb),.6);color:#EDE4D2">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+          </a>
+          <a href="https://x.com/TBTastyBox" target="_blank" rel="noopener" aria-label="X" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(var(--acc-rgb),.28);color:#B6A98F;text-decoration:none;transition:border-color .3s ease,color .3s ease" style-hover="border-color:rgba(var(--acc-rgb),.6);color:#EDE4D2">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644Z"></path></svg>
+          </a>
+        </div>
+      </div>
+      <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="3">
+        <div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-bottom:16px">{{ col.h }}</div>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <sc-for list="{{ col.links }}" as="l" hint-placeholder-count="3">
+              <a href="{{ l.href }}" target="{{ l.target }}" rel="noopener" style="text-decoration:none;color:#B6A98F;font-size:14.5px;font-weight:300" style-hover="color:#EDE4D2">{{ l.label }}</a>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="border-top:1px solid rgba(var(--acc-rgb),.1)">
+      <div style="max-width:1240px;margin:0 auto;padding:18px 36px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;color:#7E725D">
+        <span>{{ legal }}</span>
+        <span style="display:flex;gap:22px">
+          <sc-for list="{{ legalLinks }}" as="ll" hint-placeholder-count="3">
+            <a href="#" style="color:#7E725D;text-decoration:none" style-hover="color:#B6A98F">{{ ll }}</a>
+          </sc-for>
+        </span>
+      </div>
+    </div>
+  </footer>
+ </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1240,&quot;height&quot;:820},&quot;accent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Oro&quot;,&quot;Cobre&quot;,&quot;Salvia&quot;,&quot;Granate&quot;],&quot;default&quot;:&quot;Oro&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { lang: 'es', fading: false };
+
+  componentDidMount() {
+    try { const s = localStorage.getItem('tb-lang'); if (s === 'en' || s === 'es') this.setState({ lang: s }); } catch (e) {}
+    if (!('IntersectionObserver' in window)) return;
+    const els = [...document.querySelectorAll('[data-reveal]')];
+    els.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(24px)'; el.style.transition = 'opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)'; });
+    const reveal = el => { el.style.transitionDelay = (el.getAttribute('data-reveal-delay') || 0) + 'ms'; el.style.opacity = '1'; el.style.transform = 'none'; };
+    this._io = new IntersectionObserver(ents => { ents.forEach(e => { if (e.isIntersecting) { reveal(e.target); this._io.unobserve(e.target); } }); }, { threshold: 0.08, rootMargin: '0px 0px -5% 0px' });
+    els.forEach(el => this._io.observe(el));
+    this._fb = setTimeout(() => els.forEach(reveal), 700);
+  }
+  componentWillUnmount() { clearTimeout(this._ft); clearTimeout(this._fb); if (this._io) this._io.disconnect(); }
+
+  setLang(l) {
+    if (l === this.state.lang) return;
+    try { localStorage.setItem('tb-lang', l); } catch (e) {}
+    this.setState({ fading: true });
+    clearTimeout(this._ft);
+    this._ft = setTimeout(() => this.setState({ lang: l, fading: false }), 280);
+  }
+
+  renderVals() {
+    const URLS = { home: 'index.html', about: 'nosotros.html', pers: 'personalizacion.html', blog: 'blog.html', tienda: 'tienda.html', faq: 'faq.html', contacto: 'contacto.html' };
+    const navLink = 'text-decoration:none;font-size:12.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;transition:color .3s ease;';
+    const ACCENTS = { 'Oro': { acc: '#C9A35B', soft: '#DCC081', rgb: '201,163,91' }, 'Cobre': { acc: '#C2784A', soft: '#E0A06F', rgb: '194,120,74' }, 'Salvia': { acc: '#94A06A', soft: '#BFC793', rgb: '148,160,106' }, 'Granate': { acc: '#C06A72', soft: '#DE969C', rgb: '192,106,114' } };
+    const acc = ACCENTS[this.props.accent] || ACCENTS['Oro'];
+    const themeVars = { '--acc': acc.acc, '--acc-soft': acc.soft, '--acc-rgb': acc.rgb };
+
+    const mkNav = (labels) => {
+      const hrefs = [URLS.about, URLS.pers, URLS.blog, URLS.tienda, URLS.faq, URLS.contacto];
+      const active = 3;
+      return labels.map((label, i) => ({ label, href: hrefs[i], target: '_self', style: navLink + 'color:' + (i === active ? '#E7D9BE' : '#C7BBA6') + (i === active ? ';border-bottom:1px solid var(--acc);padding-bottom:3px' : '') })).filter(it => it.href !== URLS.tienda);
+    };
+    const mkImg = src => React.createElement('img', { src, alt: '', style: { width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform .8s cubic-bezier(.2,.7,.2,1)' } });
+
+    const boxMeta = [
+      { ref: 'REF. TBCG01', img: 'assets/prod-chocolate.png', buyUrl: 'https://buybuttons.sefed.es/buybuttons/es01ies11243/btn/300cbcce-a2e8-44c0-88f5-e20b5ce05f27/' },
+      { ref: 'REF. TBQU01', img: 'assets/prod-queso.png', buyUrl: 'https://buybuttons.sefed.es/buybuttons/es01ies11243/btn/30c27b40-bc16-455b-a7b9-fbf0e11f5811/' },
+      { ref: 'REF. TBAC01', img: 'assets/prod-aceite.png', buyUrl: 'https://buybuttons.sefed.es/buybuttons/es01ies11243/btn/264913c4-bf8b-49b1-af04-3d42746ef82d/' },
+      { ref: 'REF. TBVT01', img: 'assets/box-mixed.png', buyUrl: 'https://buybuttons.sefed.es/buybuttons/es01ies11243/btn/9789aba3-aa22-4026-b862-900231e69170/' }
+    ];
+
+    const T = {
+      es: {
+        announce: 'Envíos a toda España · Campaña de Navidad 2026 — reserva tus cajas antes del 30 de noviembre',
+        nav: mkNav(['Nosotros', 'Personalización', 'Blog', 'Tienda', 'FAQ', 'Contacto']),
+        shopLabel: 'Tienda online', comprar: 'Comprar',
+        pageEyebrow: 'Catálogo', pageTitle: 'Descubre nuestras cajas',
+        pageSub: 'Cuatro cajas seleccionadas con producto de productores locales. O personalízalas por completo a tu gusto.',
+        boxes: [
+          { name: 'Tasty Chocolate', price: '18 € + IVA', desc: 'Caja regalo elegante repleta de chocolates artesanos de Astorga, de tradición chocolatera desde el siglo XVI. Perfecta como agradecimiento de empresa.' },
+          { name: 'Tasty Queso', price: '22 € + IVA', desc: 'Pack de quesos de Castilla y León con leche de oveja 100%, sabor intenso y aroma pronunciado tras una maduración de hasta un año. Para cheeselovers.' },
+          { name: 'Tasty Aceite', price: '19 € + IVA', desc: 'Aceite de oliva virgen extra de altísima calidad, de olivos centenarios y clima único de Castilla y León. Una joya gastronómica presentada con elegancia.' },
+          { name: 'Tasty Vino', price: '24 € + IVA', desc: 'Pack de vinos de la Ribera, la expresión más pura del Tempranillo. Grandes, atrevidos y con textura, para brindar por el trabajo bien hecho.' }
+        ],
+        perks: [
+          { k: '01', t: 'Producto con origen', d: 'Pequeños productores de Castilla y León, con denominación y trazabilidad.' },
+          { k: '02', t: 'Envío incluido', d: 'Transporte a península incluido en el precio. Sin sorpresas en la entrega.' },
+          { k: '03', t: 'Pedido desde 10 uds.', d: 'Mínimo 10 cajas en tienda. Para grandes volúmenes, propuesta a medida.' },
+          { k: '04', t: 'Entrega en 48 h', d: 'Montaje a mano y envío en 48 h a península una vez validado el pedido.' }
+        ],
+        persEyebrow: 'Personalización', persTitle: 'Hazla tuya por completo',
+        persSub: 'Cualquiera de nuestras cajas se personaliza con tu logo, mensajes y etiquetas. Sube tu marca y previsualiza el resultado antes de pedir.',
+        persCta: 'Personalizar una caja',
+        footerTagline: 'Cajas gourmet personalizadas para empresas. Producto artesano de Castilla y León con presentación premium.',
+        footerCols: [
+          { h: 'Producto', links: [{ label: 'Cajas', href: URLS.tienda, target: '_self' }, { label: 'Personalización', href: URLS.pers, target: '_self' }, { label: 'Tienda', href: 'https://web.tbtastybox.com/', target: '_blank' }, { label: 'Blog', href: URLS.blog, target: '_self' }] },
+          { h: 'Empresa', links: [{ label: 'Nosotros', href: URLS.about, target: '_self' }, { label: 'FAQ', href: URLS.faq, target: '_self' }, { label: 'Contacto', href: URLS.contacto, target: '_self' }] },
+          { h: 'Contacto', links: [{ label: 'Lun–Vie · 9:00–14:00', href: URLS.contacto, target: '_self' }, { label: 'Mirabel, 25 · 47010 Valladolid', href: 'https://maps.google.com/?q=Mirabel+25+47010+Valladolid', target: '_blank' }, { label: '983 260 716', href: 'tel:+34983260716', target: '_self' }, { label: 'tbtastybox@gmail.com', href: 'mailto:tbtastybox@gmail.com', target: '_self' }] }
+        ],
+        legal: 'Esta es una empresa simulada con fines educativos. Contenidos generados con IA.', legalLinks: ['Privacidad', 'Términos', 'Cookies']
+      },
+      en: {
+        announce: 'Shipping across Spain · Christmas 2026 campaign — reserve your boxes before November 30',
+        nav: mkNav(['About', 'Personalization', 'Blog', 'Shop', 'FAQ', 'Contact']),
+        shopLabel: 'Online shop', comprar: 'Buy',
+        pageEyebrow: 'Catalogue', pageTitle: 'Discover our boxes',
+        pageSub: 'Four curated boxes of local-producer products. Or personalize them entirely to your taste.',
+        boxes: [
+          { name: 'Tasty Chocolate', price: '€18 + VAT', desc: 'An elegant gift box filled with artisan chocolates from Astorga, a chocolate-making tradition since the 16th century. Perfect as a corporate thank-you.' },
+          { name: 'Tasty Queso', price: '€22 + VAT', desc: "A cheese pack from Castilla y León made with 100% sheep's milk, intense flavour and pronounced aroma after ageing up to a year. For cheese lovers." },
+          { name: 'Tasty Aceite', price: '€19 + VAT', desc: 'Top-quality extra-virgin olive oil from centuries-old groves and the unique climate of Castilla y León. A gastronomic gem, elegantly presented.' },
+          { name: 'Tasty Vino', price: '€24 + VAT', desc: 'A Ribera wine pack, the purest expression of Tempranillo. Bold, textured and characterful, to toast a job well done.' }
+        ],
+        perks: [
+          { k: '01', t: 'Product with origin', d: 'Small producers of Castilla y León, with denomination and traceability.' },
+          { k: '02', t: 'Shipping included', d: 'Mainland shipping included in the price. No surprises at delivery.' },
+          { k: '03', t: 'Order from 10 units', d: 'Minimum 10 boxes in the shop. For large volumes, a tailored proposal.' },
+          { k: '04', t: 'Delivery in 48h', d: 'Hand assembly and 48h mainland shipping once the order is approved.' }
+        ],
+        persEyebrow: 'Personalization', persTitle: 'Make it entirely yours',
+        persSub: 'Any of our boxes can be personalized with your logo, messages and labels. Upload your brand and preview the result before ordering.',
+        persCta: 'Personalize a box',
+        footerTagline: 'Personalized gourmet boxes for companies. Artisan products from Castilla y León with premium presentation.',
+        footerCols: [
+          { h: 'Product', links: [{ label: 'Boxes', href: URLS.tienda, target: '_self' }, { label: 'Personalization', href: URLS.pers, target: '_self' }, { label: 'Shop', href: 'https://web.tbtastybox.com/', target: '_blank' }, { label: 'Blog', href: URLS.blog, target: '_self' }] },
+          { h: 'Company', links: [{ label: 'About', href: URLS.about, target: '_self' }, { label: 'FAQ', href: URLS.faq, target: '_self' }, { label: 'Contact', href: URLS.contacto, target: '_self' }] },
+          { h: 'Contact', links: [{ label: 'Mon–Fri · 9:00–14:00', href: URLS.contacto, target: '_self' }, { label: 'Mirabel, 25 · 47010 Valladolid', href: 'https://maps.google.com/?q=Mirabel+25+47010+Valladolid', target: '_blank' }, { label: '983 260 716', href: 'tel:+34983260716', target: '_self' }, { label: 'tbtastybox@gmail.com', href: 'mailto:tbtastybox@gmail.com', target: '_self' }] }
+        ],
+        legal: 'This is a simulated company for educational purposes. Content generated with AI.', legalLinks: ['Privacy', 'Terms', 'Cookies']
+      }
+    };
+
+    const c = T[this.state.lang];
+    const boxes = c.boxes.map((b, i) => ({ ...b, ...boxMeta[i], delay: i * 90, imgEl: mkImg(boxMeta[i].img) }));
+    const perks = c.perks.map((p, i) => ({ ...p, delay: i * 70 }));
+    const lang = this.state.lang;
+
+    return {
+      ...c, boxes, perks,
+      pageStyle: { ...themeVars, background: 'var(--bg)', opacity: this.state.fading ? 0 : 1, transition: 'opacity .28s ease' },
+      langPill: { position: 'absolute', top: 0, left: lang === 'es' ? 0 : '50%', width: '50%', height: '100%', background: 'var(--acc)', borderRadius: '999px', transition: 'left .35s cubic-bezier(.4,0,.1,1)' },
+      esColor: lang === 'es' ? '#0F0D0B' : '#9A8C73',
+      enColor: lang === 'en' ? '#0F0D0B' : '#9A8C73',
+      setEs: () => this.setLang('es'),
+      setEn: () => this.setLang('en'),
+      zoomIn: e => { const img = e.currentTarget.querySelector('img'); if (img) img.style.transform = 'scale(1.06)'; },
+      zoomOut: e => { const img = e.currentTarget.querySelector('img'); if (img) img.style.transform = 'scale(1)'; }
+    };
+  }
+}
+</script>
+</body>
+</html>

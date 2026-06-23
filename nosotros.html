@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--acc:#C9A35B;--acc-soft:#DCC081;--acc-rgb:201,163,91;--bg:#0F0D0B;--bg-deep:#0A0907;--panel:#16130F}
+  html{scroll-behavior:smooth}
+  body{background:#0F0D0B;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  ::selection{background:var(--acc);color:#0F0D0B}
+  @keyframes tb-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+
+<div id="tb-root" style="font-family:'Jost',sans-serif;color:#EDE4D2;background:var(--bg);overflow-x:hidden">
+ <div style="{{ pageStyle }}">
+
+  <!-- announcement -->
+  <div style="background:var(--bg-deep);color:var(--acc);font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;text-align:center;padding:9px 16px;font-weight:500;border-bottom:1px solid rgba(var(--acc-rgb),.14)">{{ announce }}</div>
+
+  <!-- nav -->
+  <header style="position:sticky;top:0;z-index:40;background:rgba(15,13,11,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(var(--acc-rgb),.12)">
+    <nav style="max-width:1240px;margin:0 auto;padding:16px 36px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <a href="index.html" style="display:flex;align-items:center;gap:13px;text-decoration:none">
+        <span style="display:flex;align-items:center;font-family:'Playfair Display',serif;font-weight:600;font-size:24px;color:#E7D9BE;line-height:1;letter-spacing:.02em">T<span style="width:1px;height:24px;background:rgba(var(--acc-rgb),.55);margin:0 3px"></span>B</span>
+        <span style="font-family:'Jost',sans-serif;font-weight:500;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#9A8C73">Tasty&nbsp;Box</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:30px">
+        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+          <a href="{{ n.href }}" target="{{ n.target }}" rel="noopener" style="{{ n.style }}" style-hover="color:#E7D9BE">{{ n.label }}</a>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:18px">
+        <div style="position:relative;display:flex;align-items:center;border:1px solid rgba(var(--acc-rgb),.3);border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.08em">
+          <span style="{{ langPill }}"></span>
+          <span onClick="{{ setEs }}" style="position:relative;z-index:1;padding:5px 12px;cursor:pointer;transition:color .3s ease;color:{{ esColor }}">ES</span>
+          <span onClick="{{ setEn }}" style="position:relative;z-index:1;padding:5px 12px;cursor:pointer;transition:color .3s ease;color:{{ enColor }}">EN</span>
+        </div>
+        <a href="tienda.html" style="text-decoration:none;color:#0F0D0B;background:var(--acc);font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:11px 22px;border-radius:999px" style-hover="background:var(--acc-soft)">{{ shopLabel }}</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- page hero -->
+  <section style="position:relative;background:var(--bg-deep);border-bottom:1px solid rgba(var(--acc-rgb),.12)">
+    <div style="max-width:1240px;margin:0 auto;padding:84px 36px 72px;display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center">
+      <div data-reveal>
+        <div style="display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);margin-bottom:24px"><span style="width:26px;height:1px;background:var(--acc)"></span>{{ heroEyebrow }}</div>
+        <h1 style="font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(40px,5vw,68px);line-height:1.04;letter-spacing:-.01em;color:#F6EFE0;margin-bottom:24px">{{ heroTitle }}</h1>
+        <p style="font-size:18px;line-height:1.66;color:#B6A98F;font-weight:300;margin-bottom:18px;max-width:540px">{{ heroP1 }}</p>
+        <p style="font-size:18px;line-height:1.66;color:#B6A98F;font-weight:300;max-width:540px">{{ heroP2 }}</p>
+      </div>
+      <div data-reveal data-reveal-delay="120" style="position:relative;aspect-ratio:1/1;border-radius:6px;overflow:hidden;border:1px solid rgba(var(--acc-rgb),.2)">
+        <img src="assets/box-mixed.png" alt="Tasty Box" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(11,9,7,.5),transparent 55%)"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- essence -->
+  <section style="background:var(--panel);border-bottom:1px solid rgba(var(--acc-rgb),.12)">
+    <div style="max-width:1240px;margin:0 auto;padding:96px 36px;display:grid;grid-template-columns:.95fr 1.05fr;gap:64px;align-items:center">
+      <div data-reveal style="position:relative;aspect-ratio:4/5;border-radius:6px;overflow:hidden;border:1px solid rgba(var(--acc-rgb),.2)">
+        <img src="assets/chef.png" alt="{{ essenceTitle }}" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(11,9,7,.55),transparent 50%)"></div>
+      </div>
+      <div data-reveal data-reveal-delay="100">
+        <div style="font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);margin-bottom:18px">{{ essenceEyebrow }}</div>
+        <h2 style="font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(32px,3.8vw,48px);line-height:1.06;color:#F6EFE0;margin-bottom:22px">{{ essenceTitle }}</h2>
+        <p style="font-size:17px;line-height:1.66;color:#B6A98F;font-weight:300;margin-bottom:16px">{{ essenceP1 }}</p>
+        <p style="font-size:17px;line-height:1.66;color:#B6A98F;font-weight:300;margin-bottom:16px">{{ essenceP2 }}</p>
+        <p style="font-size:17px;line-height:1.66;color:#B6A98F;font-weight:300;margin-bottom:30px">{{ essenceP3 }}</p>
+        <a href="contacto.html" style="text-decoration:none;background:var(--acc);color:#0F0D0B;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:15px 28px;border-radius:999px" style-hover="background:var(--acc-soft)">{{ essenceCta }}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- values / commitment -->
+  <section style="border-bottom:1px solid rgba(var(--acc-rgb),.12)">
+    <div style="max-width:1240px;margin:0 auto;padding:64px 36px;display:grid;grid-template-columns:repeat(3,1fr);gap:0">
+      <sc-for list="{{ values }}" as="v" hint-placeholder-count="3">
+        <div data-reveal style="padding:8px 38px;border-left:1px solid rgba(var(--acc-rgb),.14)">
+          <div style="font-family:'Playfair Display',serif;font-size:20px;color:var(--acc);margin-bottom:16px">{{ v.n }}</div>
+          <h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:25px;color:#F2EBDC;margin-bottom:11px;line-height:1.15">{{ v.t }}</h3>
+          <p style="font-size:15.5px;line-height:1.62;color:#A89A84;font-weight:300">{{ v.d }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- team -->
+  <section style="max-width:1240px;margin:0 auto;padding:96px 36px">
+    <div data-reveal style="text-align:center;margin-bottom:56px">
+      <div style="font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);margin-bottom:16px">{{ teamEyebrow }}</div>
+      <h2 style="font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(34px,4.2vw,54px);line-height:1.04;color:#F6EFE0">{{ teamTitle }}</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px">
+      <sc-for list="{{ team }}" as="m" hint-placeholder-count="4">
+        <div data-reveal data-reveal-delay="{{ m.delay }}" onMouseEnter="{{ zoomIn }}" onMouseLeave="{{ zoomOut }}" style="background:var(--panel);border:1px solid rgba(var(--acc-rgb),.14);border-radius:6px;overflow:hidden;transition:border-color .4s ease,transform .4s ease" style-hover="border-color:rgba(var(--acc-rgb),.45);transform:translateY(-4px)">
+          <div style="position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--bg-deep)">{{ m.imgEl }}</div>
+          <div style="padding:20px 22px 22px">
+            <h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:20px;color:#F2EBDC;margin-bottom:4px">{{ m.name }}</h3>
+            <p style="font-size:13px;letter-spacing:.04em;color:#9A8C73">{{ m.role }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- cta -->
+  <section style="position:relative;background-image:linear-gradient(rgba(11,9,7,.86),rgba(11,9,7,.9)),url('assets/box-mixed.png');background-size:cover;background-position:center;border-top:1px solid rgba(var(--acc-rgb),.12)">
+    <div data-reveal style="max-width:820px;margin:0 auto;padding:96px 36px;text-align:center">
+      <div style="font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);margin-bottom:20px">{{ ctaEyebrow }}</div>
+      <h2 style="font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(34px,4.6vw,58px);line-height:1.04;color:#F6EFE0;margin-bottom:20px">{{ ctaTitle }}</h2>
+      <p style="font-size:18px;line-height:1.6;color:#C3B69E;font-weight:300;max-width:520px;margin:0 auto 34px">{{ ctaSub }}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">
+        <a href="contacto.html" style="text-decoration:none;background:var(--acc);color:#0F0D0B;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:17px 34px;border-radius:999px" style-hover="background:var(--acc-soft)">{{ ctaBtn1 }}</a>
+        <a href="tienda.html" style="text-decoration:none;background:rgba(237,228,210,.06);color:#EDE4D2;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:17px 32px;border-radius:999px;border:1px solid rgba(237,228,210,.25)" style-hover="border-color:var(--acc)">{{ ctaBtn2 }}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer style="background:var(--bg-deep);border-top:1px solid rgba(var(--acc-rgb),.14)">
+    <div style="max-width:1240px;margin:0 auto;padding:60px 36px 40px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px">
+      <div>
+        <div style="display:flex;align-items:center;gap:13px;margin-bottom:18px">
+          <span style="display:flex;align-items:center;font-family:'Playfair Display',serif;font-weight:600;font-size:23px;color:#E7D9BE;line-height:1">T<span style="width:1px;height:23px;background:rgba(var(--acc-rgb),.55);margin:0 3px"></span>B</span>
+          <span style="font-family:'Jost',sans-serif;font-weight:500;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#9A8C73">Tasty&nbsp;Box</span>
+        </div>
+        <p style="font-size:14.5px;line-height:1.62;color:#8E8167;font-weight:300;max-width:280px">{{ footerTagline }}</p>
+        <div style="display:flex;gap:12px;margin-top:22px">
+          <a href="https://www.instagram.com/tb_tastybox/" target="_blank" rel="noopener" aria-label="Instagram" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(var(--acc-rgb),.28);color:#B6A98F;text-decoration:none;transition:border-color .3s ease,color .3s ease" style-hover="border-color:rgba(var(--acc-rgb),.6);color:#EDE4D2">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+          </a>
+          <a href="https://x.com/TBTastyBox" target="_blank" rel="noopener" aria-label="X" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(var(--acc-rgb),.28);color:#B6A98F;text-decoration:none;transition:border-color .3s ease,color .3s ease" style-hover="border-color:rgba(var(--acc-rgb),.6);color:#EDE4D2">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644Z"></path></svg>
+          </a>
+        </div>
+      </div>
+      <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="3">
+        <div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-bottom:16px">{{ col.h }}</div>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <sc-for list="{{ col.links }}" as="l" hint-placeholder-count="3">
+              <a href="{{ l.href }}" target="{{ l.target }}" rel="noopener" style="text-decoration:none;color:#B6A98F;font-size:14.5px;font-weight:300" style-hover="color:#EDE4D2">{{ l.label }}</a>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="border-top:1px solid rgba(var(--acc-rgb),.1)">
+      <div style="max-width:1240px;margin:0 auto;padding:18px 36px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;color:#7E725D">
+        <span>{{ legal }}</span>
+        <span style="display:flex;gap:22px">
+          <sc-for list="{{ legalLinks }}" as="ll" hint-placeholder-count="3">
+            <a href="#" style="color:#7E725D;text-decoration:none" style-hover="color:#B6A98F">{{ ll }}</a>
+          </sc-for>
+        </span>
+      </div>
+    </div>
+  </footer>
+ </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1240,&quot;height&quot;:820},&quot;accent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Oro&quot;,&quot;Cobre&quot;,&quot;Salvia&quot;,&quot;Granate&quot;],&quot;default&quot;:&quot;Oro&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { lang: 'es', fading: false };
+
+  componentDidMount() {
+    try { const s = localStorage.getItem('tb-lang'); if (s === 'en' || s === 'es') this.setState({ lang: s }); } catch (e) {}
+    // Scroll-triggered entrance — content stays visible if the observer is unavailable.
+    if (!('IntersectionObserver' in window)) return;
+    const els = [...document.querySelectorAll('[data-reveal]')];
+    els.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(24px)'; el.style.transition = 'opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)'; });
+    const reveal = el => { el.style.transitionDelay = (el.getAttribute('data-reveal-delay') || 0) + 'ms'; el.style.opacity = '1'; el.style.transform = 'none'; };
+    this._io = new IntersectionObserver(ents => { ents.forEach(e => { if (e.isIntersecting) { reveal(e.target); this._io.unobserve(e.target); } }); }, { threshold: 0.08, rootMargin: '0px 0px -5% 0px' });
+    els.forEach(el => this._io.observe(el));
+    // Bulletproof fallback: reveal everything shortly after load no matter what.
+    this._fb = setTimeout(() => els.forEach(reveal), 700);
+  }
+  componentWillUnmount() { clearTimeout(this._ft); clearTimeout(this._fb); if (this._io) this._io.disconnect(); }
+
+  setLang(l) {
+    if (l === this.state.lang) return;
+    try { localStorage.setItem('tb-lang', l); } catch (e) {}
+    this.setState({ fading: true });
+    clearTimeout(this._ft);
+    this._ft = setTimeout(() => this.setState({ lang: l, fading: false }), 280);
+  }
+
+  renderVals() {
+    const URLS = { home: 'index.html', about: 'nosotros.html', pers: 'personalizacion.html', blog: 'blog.html', tienda: 'tienda.html', faq: 'faq.html', contacto: 'contacto.html' };
+    const navLink = 'text-decoration:none;font-size:12.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;transition:color .3s ease;';
+    const ACCENTS = { 'Oro': { acc: '#C9A35B', soft: '#DCC081', rgb: '201,163,91' }, 'Cobre': { acc: '#C2784A', soft: '#E0A06F', rgb: '194,120,74' }, 'Salvia': { acc: '#94A06A', soft: '#BFC793', rgb: '148,160,106' }, 'Granate': { acc: '#C06A72', soft: '#DE969C', rgb: '192,106,114' } };
+    const acc = ACCENTS[this.props.accent] || ACCENTS['Oro'];
+    const themeVars = { '--acc': acc.acc, '--acc-soft': acc.soft, '--acc-rgb': acc.rgb };
+
+    const mkNav = (labels) => {
+      const hrefs = [URLS.about, URLS.pers, URLS.blog, URLS.tienda, URLS.faq, URLS.contacto];
+      const active = 0; // Nosotros
+      return labels.map((label, i) => ({ label, href: hrefs[i], target: '_self', style: navLink + 'color:' + (i === active ? '#E7D9BE' : '#C7BBA6') + (i === active ? ';border-bottom:1px solid var(--acc);padding-bottom:3px' : '') })).filter(it => it.href !== URLS.tienda);
+    };
+
+    const teamMeta = [
+      { img: 'assets/portrait-woman.png', delay: 0 },
+      { img: 'assets/team-tshirt.webp', delay: 80 },
+      { img: 'assets/team-cap.webp', delay: 160 },
+      { img: 'assets/chef.png', delay: 240 }
+    ];
+
+    const T = {
+      es: {
+        announce: 'Envíos a toda España · Campaña de Navidad 2026 — reserva tus cajas antes del 30 de noviembre',
+        nav: mkNav(['Nosotros', 'Personalización', 'Blog', 'Tienda', 'FAQ', 'Contacto']),
+        shopLabel: 'Tienda',
+        heroEyebrow: 'Nosotros',
+        heroTitle: 'Sobre Tasty Box: nuestra historia y compromiso',
+        heroP1: 'En Tasty Box, especialistas en cajas gourmet personalizadas para empresas, creemos que cada regalo es una oportunidad para conectar y emocionar. Seleccionamos cuidadosamente alimentos elaborados en Castilla y León para garantizar la máxima calidad y autenticidad.',
+        heroP2: 'Nuestro compromiso va más allá del regalo: apostamos por el comercio justo, el desarrollo sostenible y la difusión de la cultura gastronómica de nuestra tierra.',
+        essenceEyebrow: 'Nuestra esencia',
+        essenceTitle: 'Cajas con sabor a Castilla y León',
+        essenceP1: 'Cada caja Tasty Box es una muestra del sabor y el saber hacer de nuestra región: vinos de la Ribera del Duero con cuerpo y carácter, quesos curados de Zamora, chocolates artesanos de Astorga y aceites de oliva virgen extra de Salamanca.',
+        essenceP2: 'Detrás de cada producto hay una historia: pequeños productores, familias y artesanos que ponen pasión en su oficio. Trabajamos directamente con ellos para garantizar una selección exclusiva, sostenible y con identidad propia.',
+        essenceP3: 'Regalar una caja Tasty Box no es solo ofrecer un producto, sino compartir una parte de nuestra cultura, nuestras raíces y nuestro compromiso con la excelencia.',
+        essenceCta: 'Contáctanos',
+        values: [
+          { n: '— I', t: 'Comercio justo', d: 'Pagamos un precio digno a cada productor y construimos relaciones duraderas con el tejido local.' },
+          { n: '— II', t: 'Producto con origen', d: 'Producto con denominación, trazable y elegido a mano. Nada de relleno genérico ni intermediarios.' },
+          { n: '— III', t: 'Cultura gastronómica', d: 'Cada caja difunde el saber hacer de Castilla y León y mantiene vivas nuestras tradiciones.' }
+        ],
+        teamEyebrow: 'Las personas',
+        teamTitle: 'Nuestro equipo',
+        team: [{ name: 'Sara', role: 'Dirección' }, { name: 'Mateo', role: 'Producto' }, { name: 'María', role: 'Atención al cliente' }, { name: 'Luis', role: 'Logística' }],
+        ctaEyebrow: '¿Hablamos?',
+        ctaTitle: 'Preparamos tu presupuesto en 24 horas',
+        ctaSub: 'Cuéntanos cuántas cajas, para qué ocasión y tu presupuesto por unidad. Te respondemos con una propuesta a medida.',
+        ctaBtn1: 'Contactar', ctaBtn2: 'Ver la tienda',
+        footerTagline: 'Cajas gourmet personalizadas para empresas. Producto artesano de Castilla y León con presentación premium.',
+        footerCols: [
+          { h: 'Producto', links: [{ label: 'Cajas', href: URLS.tienda, target: '_self' }, { label: 'Personalización', href: URLS.pers, target: '_self' }, { label: 'Tienda', href: URLS.tienda, target: '_self' }, { label: 'Blog', href: URLS.blog, target: '_self' }] },
+          { h: 'Empresa', links: [{ label: 'Nosotros', href: URLS.about, target: '_self' }, { label: 'FAQ', href: URLS.faq, target: '_self' }, { label: 'Contacto', href: URLS.contacto, target: '_self' }] },
+          { h: 'Contacto', links: [{ label: 'Lun–Vie · 9:00–14:00', href: URLS.contacto, target: '_self' }, { label: 'Mirabel, 25 · 47010 Valladolid', href: 'https://maps.google.com/?q=Mirabel+25+47010+Valladolid', target: '_blank' }, { label: '983 260 716', href: 'tel:+34983260716', target: '_self' }, { label: 'tbtastybox@gmail.com', href: 'mailto:tbtastybox@gmail.com', target: '_self' }] }
+        ],
+        legal: 'Esta es una empresa simulada con fines educativos. Contenidos generados con IA.', legalLinks: ['Privacidad', 'Términos', 'Cookies']
+      },
+      en: {
+        announce: 'Shipping across Spain · Christmas 2026 campaign — reserve your boxes before November 30',
+        nav: mkNav(['About', 'Personalization', 'Blog', 'Shop', 'FAQ', 'Contact']),
+        shopLabel: 'Shop',
+        heroEyebrow: 'About',
+        heroTitle: 'About Tasty Box: our story and commitment',
+        heroP1: 'At Tasty Box, specialists in personalized gourmet boxes for companies, we believe every gift is an opportunity to connect and move. We carefully select foods made in Castilla y León to guarantee maximum quality and authenticity.',
+        heroP2: 'Our commitment goes beyond the gift: we stand for fair trade, sustainable development and spreading the gastronomic culture of our region.',
+        essenceEyebrow: 'Our essence',
+        essenceTitle: 'Boxes with the flavour of Castilla y León',
+        essenceP1: 'Every Tasty Box is a sample of the flavour and craftsmanship of our region: full-bodied Ribera del Duero wines, cured cheeses from Zamora, artisan chocolates from Astorga and extra-virgin olive oils from Salamanca.',
+        essenceP2: 'Behind every product there is a story: small producers, families and artisans who pour passion into their craft. We work directly with them to guarantee an exclusive, sustainable selection with its own identity.',
+        essenceP3: 'Gifting a Tasty Box is not only offering a product — it is sharing part of our culture, our roots and our commitment to excellence.',
+        essenceCta: 'Contact us',
+        values: [
+          { n: '— I', t: 'Fair trade', d: 'We pay a fair price to every producer and build lasting relationships with the local fabric.' },
+          { n: '— II', t: 'Product with origin', d: 'Product with denomination, traceable and hand-picked. No generic filler or middlemen.' },
+          { n: '— III', t: 'Gastronomic culture', d: 'Every box spreads the craftsmanship of Castilla y León and keeps our traditions alive.' }
+        ],
+        teamEyebrow: 'The people',
+        teamTitle: 'Our team',
+        team: [{ name: 'Sara', role: 'Management' }, { name: 'Mateo', role: 'Product' }, { name: 'María', role: 'Customer care' }, { name: 'Luis', role: 'Logistics' }],
+        ctaEyebrow: "Let's talk",
+        ctaTitle: 'We prepare your quote in 24 hours',
+        ctaSub: "Tell us how many boxes, the occasion and your per-unit budget. We'll reply with a tailored proposal.",
+        ctaBtn1: 'Contact us', ctaBtn2: 'View the shop',
+        footerTagline: 'Personalized gourmet boxes for companies. Artisan products from Castilla y León with premium presentation.',
+        footerCols: [
+          { h: 'Product', links: [{ label: 'Boxes', href: URLS.tienda, target: '_self' }, { label: 'Personalization', href: URLS.pers, target: '_self' }, { label: 'Shop', href: URLS.tienda, target: '_self' }, { label: 'Blog', href: URLS.blog, target: '_self' }] },
+          { h: 'Company', links: [{ label: 'About', href: URLS.about, target: '_self' }, { label: 'FAQ', href: URLS.faq, target: '_self' }, { label: 'Contact', href: URLS.contacto, target: '_self' }] },
+          { h: 'Contact', links: [{ label: 'Mon–Fri · 9:00–14:00', href: URLS.contacto, target: '_self' }, { label: 'Mirabel, 25 · 47010 Valladolid', href: 'https://maps.google.com/?q=Mirabel+25+47010+Valladolid', target: '_blank' }, { label: '983 260 716', href: 'tel:+34983260716', target: '_self' }, { label: 'tbtastybox@gmail.com', href: 'mailto:tbtastybox@gmail.com', target: '_self' }] }
+        ],
+        legal: 'This is a simulated company for educational purposes. Content generated with AI.', legalLinks: ['Privacy', 'Terms', 'Cookies']
+      }
+    };
+
+    const c = T[this.state.lang];
+    const team = c.team.map((m, i) => ({ ...m, ...teamMeta[i], imgEl: React.createElement('img', { src: teamMeta[i].img, alt: m.name, style: { width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform .8s cubic-bezier(.2,.7,.2,1)' } }) }));
+    const lang = this.state.lang;
+
+    return {
+      ...c,
+      team,
+      pageStyle: { ...themeVars, background: 'var(--bg)', opacity: this.state.fading ? 0 : 1, transition: 'opacity .28s ease' },
+      langPill: { position: 'absolute', top: 0, left: lang === 'es' ? 0 : '50%', width: '50%', height: '100%', background: 'var(--acc)', borderRadius: '999px', transition: 'left .35s cubic-bezier(.4,0,.1,1)' },
+      esColor: lang === 'es' ? '#0F0D0B' : '#9A8C73',
+      enColor: lang === 'en' ? '#0F0D0B' : '#9A8C73',
+      setEs: () => this.setLang('es'),
+      setEn: () => this.setLang('en'),
+      zoomIn: e => { const img = e.currentTarget.querySelector('img'); if (img) img.style.transform = 'scale(1.06)'; },
+      zoomOut: e => { const img = e.currentTarget.querySelector('img'); if (img) img.style.transform = 'scale(1)'; }
+    };
+  }
+}
+</script>
+</body>
+</html>

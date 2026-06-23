@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--acc:#C9A35B;--acc-soft:#DCC081;--acc-rgb:201,163,91;--bg:#0F0D0B;--bg-deep:#0A0907;--panel:#16130F}
+  html{scroll-behavior:smooth}
+  body{background:#0F0D0B;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  ::selection{background:var(--acc);color:#0F0D0B}
+  input::placeholder,textarea::placeholder{color:#7E725D}
+  input:focus,textarea:focus,select:focus{border-color:var(--acc)!important}
+  @keyframes tb-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+
+<div id="tb-root" style="font-family:'Jost',sans-serif;color:#EDE4D2;background:var(--bg);overflow-x:hidden">
+ <div style="{{ pageStyle }}">
+
+  <div style="background:var(--bg-deep);color:var(--acc);font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;text-align:center;padding:9px 16px;font-weight:500;border-bottom:1px solid rgba(var(--acc-rgb),.14)">{{ announce }}</div>
+
+  <header style="position:sticky;top:0;z-index:40;background:rgba(15,13,11,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(var(--acc-rgb),.12)">
+    <nav style="max-width:1240px;margin:0 auto;padding:16px 36px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <a href="index.html" style="display:flex;align-items:center;gap:13px;text-decoration:none">
+        <span style="display:flex;align-items:center;font-family:'Playfair Display',serif;font-weight:600;font-size:24px;color:#E7D9BE;line-height:1;letter-spacing:.02em">T<span style="width:1px;height:24px;background:rgba(var(--acc-rgb),.55);margin:0 3px"></span>B</span>
+        <span style="font-family:'Jost',sans-serif;font-weight:500;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#9A8C73">Tasty&nbsp;Box</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:30px">
+        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+          <a href="{{ n.href }}" target="{{ n.target }}" rel="noopener" style="{{ n.style }}" style-hover="color:#E7D9BE">{{ n.label }}</a>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:18px">
+        <div style="position:relative;display:flex;align-items:center;border:1px solid rgba(var(--acc-rgb),.3);border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.08em">
+          <span style="{{ langPill }}"></span>
+          <span onClick="{{ setEs }}" style="position:relative;z-index:1;padding:5px 12px;cursor:pointer;transition:color .3s ease;color:{{ esColor }}">ES</span>
+          <span onClick="{{ setEn }}" style="position:relative;z-index:1;padding:5px 12px;cursor:pointer;transition:color .3s ease;color:{{ enColor }}">EN</span>
+        </div>
+        <a href="tienda.html" style="text-decoration:none;color:#0F0D0B;background:var(--acc);font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:11px 22px;border-radius:999px" style-hover="background:var(--acc-soft)">{{ shopLabel }}</a>
+      </div>
+    </nav>
+  </header>
+
+  <section style="max-width:1240px;margin:0 auto;padding:80px 36px 96px;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start">
+    <!-- left: intro + details -->
+    <div data-reveal>
+      <div style="font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);margin-bottom:18px">{{ pageEyebrow }}</div>
+      <h1 style="font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(38px,4.6vw,60px);line-height:1.04;letter-spacing:-.01em;color:#F6EFE0;margin-bottom:20px">{{ pageTitle }}</h1>
+      <p style="font-size:18px;line-height:1.64;color:#B6A98F;font-weight:300;margin-bottom:40px;max-width:480px">{{ pageSub }}</p>
+      <div style="display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(var(--acc-rgb),.14)">
+        <sc-for list="{{ details }}" as="d" hint-placeholder-count="4">
+          <a href="{{ d.href }}" target="{{ d.target }}" rel="noopener" style="text-decoration:none;display:flex;align-items:center;gap:18px;padding:20px 4px;border-bottom:1px solid rgba(var(--acc-rgb),.14)" style-hover="background:rgba(var(--acc-rgb),.04)">
+            <span style="font-family:'Playfair Display',serif;font-size:15px;color:var(--acc);flex:none;width:24px">{{ d.n }}</span>
+            <span style="flex:none;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#9A8C73;width:96px">{{ d.label }}</span>
+            <span style="font-size:15.5px;color:#E0D5BF;font-weight:400">{{ d.value }}</span>
+          </a>
+        </sc-for>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:28px">
+        <a href="https://www.instagram.com/tb_tastybox/" target="_blank" rel="noopener" aria-label="Instagram" style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:999px;border:1px solid rgba(var(--acc-rgb),.28);color:#B6A98F;text-decoration:none;transition:border-color .3s ease,color .3s ease" style-hover="border-color:rgba(var(--acc-rgb),.6);color:#EDE4D2">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+        </a>
+        <a href="https://x.com/TBTastyBox" target="_blank" rel="noopener" aria-label="X" style="display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:999px;border:1px solid rgba(var(--acc-rgb),.28);color:#B6A98F;text-decoration:none;transition:border-color .3s ease,color .3s ease" style-hover="border-color:rgba(var(--acc-rgb),.6);color:#EDE4D2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644Z"></path></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- right: form -->
+    <div data-reveal data-reveal-delay="100" style="background:var(--panel);border:1px solid rgba(var(--acc-rgb),.16);border-radius:6px;padding:44px 40px">
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div style="text-align:center;padding:48px 8px">
+          <div style="width:64px;height:64px;border-radius:999px;background:rgba(var(--acc-rgb),.14);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-family:'Playfair Display',serif;font-size:30px;color:var(--acc)">✓</div>
+          <h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:26px;color:#F6EFE0;margin-bottom:10px">{{ sentTitle }}</h3>
+          <p style="font-size:15.5px;line-height:1.6;color:#A89A84;font-weight:300;max-width:360px;margin:0 auto">{{ sentSub }}</p>
+        </div>
+      </sc-if>
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ onSubmit }}" style="display:flex;flex-direction:column;gap:18px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+            <label style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#9A8C73">{{ fName }}</span>
+              <input type="text" required style="background:var(--bg-deep);border:1px solid rgba(var(--acc-rgb),.2);border-radius:4px;padding:13px 15px;font-family:'Jost',sans-serif;font-size:15px;color:#EDE4D2;outline:none;transition:border-color .3s ease">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#9A8C73">{{ fCompany }}</span>
+              <input type="text" style="background:var(--bg-deep);border:1px solid rgba(var(--acc-rgb),.2);border-radius:4px;padding:13px 15px;font-family:'Jost',sans-serif;font-size:15px;color:#EDE4D2;outline:none;transition:border-color .3s ease">
+            </label>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+            <label style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#9A8C73">{{ fEmail }}</span>
+              <input type="email" required style="background:var(--bg-deep);border:1px solid rgba(var(--acc-rgb),.2);border-radius:4px;padding:13px 15px;font-family:'Jost',sans-serif;font-size:15px;color:#EDE4D2;outline:none;transition:border-color .3s ease">
+            </label>
+            <label style="display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#9A8C73">{{ fBoxes }}</span>
+              <input type="text" placeholder="{{ fBoxesPh }}" style="background:var(--bg-deep);border:1px solid rgba(var(--acc-rgb),.2);border-radius:4px;padding:13px 15px;font-family:'Jost',sans-serif;font-size:15px;color:#EDE4D2;outline:none;transition:border-color .3s ease">
+            </label>
+          </div>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#9A8C73">{{ fOccasion }}</span>
+            <select style="background:var(--bg-deep);border:1px solid rgba(var(--acc-rgb),.2);border-radius:4px;padding:13px 15px;font-family:'Jost',sans-serif;font-size:15px;color:#EDE4D2;outline:none;transition:border-color .3s ease">
+              <sc-for list="{{ occasions }}" as="o" hint-placeholder-count="5">
+                <option style="background:#16130F;color:#EDE4D2">{{ o }}</option>
+              </sc-for>
+            </select>
+          </label>
+          <label style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#9A8C73">{{ fMessage }}</span>
+            <textarea rows="4" style="background:var(--bg-deep);border:1px solid rgba(var(--acc-rgb),.2);border-radius:4px;padding:13px 15px;font-family:'Jost',sans-serif;font-size:15px;color:#EDE4D2;outline:none;resize:vertical;transition:border-color .3s ease"></textarea>
+          </label>
+          <button type="submit" style="margin-top:6px;background:var(--acc);color:#0F0D0B;border:none;font-family:'Jost',sans-serif;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:16px 24px;border-radius:999px;cursor:pointer;transition:background .3s ease" style-hover="background:var(--acc-soft)">{{ fSubmit }}</button>
+          <p style="font-size:12.5px;color:#7E725D;text-align:center;line-height:1.5">{{ fNote }}</p>
+        </form>
+      </sc-if>
+    </div>
+  </section>
+
+  <footer style="background:var(--bg-deep);border-top:1px solid rgba(var(--acc-rgb),.14)">
+    <div style="max-width:1240px;margin:0 auto;padding:60px 36px 40px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px">
+      <div>
+        <div style="display:flex;align-items:center;gap:13px;margin-bottom:18px">
+          <span style="display:flex;align-items:center;font-family:'Playfair Display',serif;font-weight:600;font-size:23px;color:#E7D9BE;line-height:1">T<span style="width:1px;height:23px;background:rgba(var(--acc-rgb),.55);margin:0 3px"></span>B</span>
+          <span style="font-family:'Jost',sans-serif;font-weight:500;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#9A8C73">Tasty&nbsp;Box</span>
+        </div>
+        <p style="font-size:14.5px;line-height:1.62;color:#8E8167;font-weight:300;max-width:280px">{{ footerTagline }}</p>
+      </div>
+      <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="3">
+        <div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-bottom:16px">{{ col.h }}</div>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <sc-for list="{{ col.links }}" as="l" hint-placeholder-count="3">
+              <a href="{{ l.href }}" target="{{ l.target }}" rel="noopener" style="text-decoration:none;color:#B6A98F;font-size:14.5px;font-weight:300" style-hover="color:#EDE4D2">{{ l.label }}</a>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="border-top:1px solid rgba(var(--acc-rgb),.1)">
+      <div style="max-width:1240px;margin:0 auto;padding:18px 36px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;color:#7E725D">
+        <span>{{ legal }}</span>
+        <span style="display:flex;gap:22px">
+          <sc-for list="{{ legalLinks }}" as="ll" hint-placeholder-count="3">
+            <a href="#" style="color:#7E725D;text-decoration:none" style-hover="color:#B6A98F">{{ ll }}</a>
+          </sc-for>
+        </span>
+      </div>
+    </div>
+  </footer>
+ </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1240,&quot;height&quot;:820},&quot;accent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Oro&quot;,&quot;Cobre&quot;,&quot;Salvia&quot;,&quot;Granate&quot;],&quot;default&quot;:&quot;Oro&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { lang: 'es', fading: false, sent: false };
+
+  componentDidMount() {
+    try { const s = localStorage.getItem('tb-lang'); if (s === 'en' || s === 'es') this.setState({ lang: s }); } catch (e) {}
+    if (!('IntersectionObserver' in window)) return;
+    const els = [...document.querySelectorAll('[data-reveal]')];
+    els.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(24px)'; el.style.transition = 'opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)'; });
+    const reveal = el => { el.style.transitionDelay = (el.getAttribute('data-reveal-delay') || 0) + 'ms'; el.style.opacity = '1'; el.style.transform = 'none'; };
+    this._io = new IntersectionObserver(ents => { ents.forEach(e => { if (e.isIntersecting) { reveal(e.target); this._io.unobserve(e.target); } }); }, { threshold: 0.08, rootMargin: '0px 0px -5% 0px' });
+    els.forEach(el => this._io.observe(el));
+    this._fb = setTimeout(() => els.forEach(reveal), 700);
+  }
+  componentWillUnmount() { clearTimeout(this._ft); clearTimeout(this._fb); if (this._io) this._io.disconnect(); }
+
+  setLang(l) {
+    if (l === this.state.lang) return;
+    try { localStorage.setItem('tb-lang', l); } catch (e) {}
+    this.setState({ fading: true });
+    clearTimeout(this._ft);
+    this._ft = setTimeout(() => this.setState({ lang: l, fading: false }), 280);
+  }
+
+  renderVals() {
+    const URLS = { home: 'index.html', about: 'nosotros.html', pers: 'personalizacion.html', blog: 'blog.html', tienda: 'tienda.html', faq: 'faq.html', contacto: 'contacto.html' };
+    const navLink = 'text-decoration:none;font-size:12.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;transition:color .3s ease;';
+    const ACCENTS = { 'Oro': { acc: '#C9A35B', soft: '#DCC081', rgb: '201,163,91' }, 'Cobre': { acc: '#C2784A', soft: '#E0A06F', rgb: '194,120,74' }, 'Salvia': { acc: '#94A06A', soft: '#BFC793', rgb: '148,160,106' }, 'Granate': { acc: '#C06A72', soft: '#DE969C', rgb: '192,106,114' } };
+    const acc = ACCENTS[this.props.accent] || ACCENTS['Oro'];
+    const themeVars = { '--acc': acc.acc, '--acc-soft': acc.soft, '--acc-rgb': acc.rgb };
+
+    const mkNav = (labels) => {
+      const hrefs = [URLS.about, URLS.pers, URLS.blog, URLS.tienda, URLS.faq, URLS.contacto];
+      const active = 5;
+      return labels.map((label, i) => ({ label, href: hrefs[i], target: '_self', style: navLink + 'color:' + (i === active ? '#E7D9BE' : '#C7BBA6') + (i === active ? ';border-bottom:1px solid var(--acc);padding-bottom:3px' : '') })).filter(it => it.href !== URLS.tienda);
+    };
+
+    const T = {
+      es: {
+        announce: 'Envíos a toda España · Campaña de Navidad 2026 — reserva tus cajas antes del 30 de noviembre',
+        nav: mkNav(['Nosotros', 'Personalización', 'Blog', 'Tienda', 'FAQ', 'Contacto']),
+        shopLabel: 'Tienda',
+        pageEyebrow: '¿Hablamos?', pageTitle: 'Cuéntanos tu proyecto',
+        pageSub: 'Dinos cuántas cajas necesitas, para qué ocasión y tu presupuesto por unidad. Te respondemos con una propuesta a medida en menos de 24 horas laborables.',
+        details: [
+          { n: '01', label: 'Email', value: 'tbtastybox@gmail.com', href: 'mailto:tbtastybox@gmail.com', target: '_self' },
+          { n: '02', label: 'Teléfono', value: '983 260 716', href: 'tel:+34983260716', target: '_self' },
+          { n: '03', label: 'Dirección', value: 'Mirabel, 25 · 47010 Valladolid', href: 'https://maps.google.com/?q=Mirabel+25+47010+Valladolid', target: '_blank' },
+          { n: '04', label: 'Horario', value: 'Lun–Vie · 9:00–14:00', href: '#', target: '_self' }
+        ],
+        fName: 'Nombre', fCompany: 'Empresa', fEmail: 'Email', fBoxes: 'Nº de cajas', fBoxesPh: 'p. ej. 120',
+        fOccasion: 'Ocasión', occasions: ['Navidad', 'Bienvenida de empleados', 'Evento o feria', 'Aniversario', 'Fidelización de clientes', 'Otra'],
+        fMessage: 'Mensaje', fSubmit: 'Solicitar presupuesto',
+        fNote: 'Empresa simulada con fines educativos. Este formulario no envía datos reales.',
+        sentTitle: '¡Gracias!', sentSub: 'Hemos recibido tu solicitud. Te responderemos con una propuesta a medida en menos de 24 horas laborables.',
+        footerTagline: 'Cajas gourmet personalizadas para empresas. Producto artesano de Castilla y León con presentación premium.',
+        footerCols: [
+          { h: 'Producto', links: [{ label: 'Cajas', href: URLS.tienda, target: '_self' }, { label: 'Personalización', href: URLS.pers, target: '_self' }, { label: 'Tienda', href: URLS.tienda, target: '_self' }, { label: 'Blog', href: URLS.blog, target: '_self' }] },
+          { h: 'Empresa', links: [{ label: 'Nosotros', href: URLS.about, target: '_self' }, { label: 'FAQ', href: URLS.faq, target: '_self' }, { label: 'Contacto', href: URLS.contacto, target: '_self' }] },
+          { h: 'Contacto', links: [{ label: 'tbtastybox@gmail.com', href: 'mailto:tbtastybox@gmail.com', target: '_self' }, { label: '983 260 716', href: 'tel:+34983260716', target: '_self' }, { label: 'Mirabel, 25 · Valladolid', href: 'https://maps.google.com/?q=Mirabel+25+47010+Valladolid', target: '_blank' }] }
+        ],
+        legal: 'Esta es una empresa simulada con fines educativos. Contenidos generados con IA.', legalLinks: ['Privacidad', 'Términos', 'Cookies']
+      },
+      en: {
+        announce: 'Shipping across Spain · Christmas 2026 campaign — reserve your boxes before November 30',
+        nav: mkNav(['About', 'Personalization', 'Blog', 'Shop', 'FAQ', 'Contact']),
+        shopLabel: 'Shop',
+        pageEyebrow: "Let's talk", pageTitle: 'Tell us about your project',
+        pageSub: 'Tell us how many boxes you need, the occasion and your per-unit budget. We will reply with a tailored proposal within 24 business hours.',
+        details: [
+          { n: '01', label: 'Email', value: 'tbtastybox@gmail.com', href: 'mailto:tbtastybox@gmail.com', target: '_self' },
+          { n: '02', label: 'Phone', value: '983 260 716', href: 'tel:+34983260716', target: '_self' },
+          { n: '03', label: 'Address', value: 'Mirabel, 25 · 47010 Valladolid', href: 'https://maps.google.com/?q=Mirabel+25+47010+Valladolid', target: '_blank' },
+          { n: '04', label: 'Hours', value: 'Mon–Fri · 9:00–14:00', href: '#', target: '_self' }
+        ],
+        fName: 'Name', fCompany: 'Company', fEmail: 'Email', fBoxes: 'No. of boxes', fBoxesPh: 'e.g. 120',
+        fOccasion: 'Occasion', occasions: ['Christmas', 'Employee onboarding', 'Event or fair', 'Anniversary', 'Client loyalty', 'Other'],
+        fMessage: 'Message', fSubmit: 'Request a quote',
+        fNote: 'Simulated company for educational purposes. This form does not send real data.',
+        sentTitle: 'Thank you!', sentSub: 'We have received your request. We will reply with a tailored proposal within 24 business hours.',
+        footerTagline: 'Personalized gourmet boxes for companies. Artisan products from Castilla y León with premium presentation.',
+        footerCols: [
+          { h: 'Product', links: [{ label: 'Boxes', href: URLS.tienda, target: '_self' }, { label: 'Personalization', href: URLS.pers, target: '_self' }, { label: 'Shop', href: URLS.tienda, target: '_self' }, { label: 'Blog', href: URLS.blog, target: '_self' }] },
+          { h: 'Company', links: [{ label: 'About', href: URLS.about, target: '_self' }, { label: 'FAQ', href: URLS.faq, target: '_self' }, { label: 'Contact', href: URLS.contacto, target: '_self' }] },
+          { h: 'Contact', links: [{ label: 'tbtastybox@gmail.com', href: 'mailto:tbtastybox@gmail.com', target: '_self' }, { label: '983 260 716', href: 'tel:+34983260716', target: '_self' }, { label: 'Mirabel, 25 · Valladolid', href: 'https://maps.google.com/?q=Mirabel+25+47010+Valladolid', target: '_blank' }] }
+        ],
+        legal: 'This is a simulated company for educational purposes. Content generated with AI.', legalLinks: ['Privacy', 'Terms', 'Cookies']
+      }
+    };
+
+    const c = T[this.state.lang];
+    const lang = this.state.lang;
+
+    return {
+      ...c,
+      sent: this.state.sent, notSent: !this.state.sent,
+      onSubmit: e => { e.preventDefault(); this.setState({ sent: true }); },
+      pageStyle: { ...themeVars, background: 'var(--bg)', opacity: this.state.fading ? 0 : 1, transition: 'opacity .28s ease' },
+      langPill: { position: 'absolute', top: 0, left: lang === 'es' ? 0 : '50%', width: '50%', height: '100%', background: 'var(--acc)', borderRadius: '999px', transition: 'left .35s cubic-bezier(.4,0,.1,1)' },
+      esColor: lang === 'es' ? '#0F0D0B' : '#9A8C73',
+      enColor: lang === 'en' ? '#0F0D0B' : '#9A8C73',
+      setEs: () => this.setLang('es'),
+      setEn: () => this.setLang('en')
+    };
+  }
+}
+</script>
+</body>
+</html>
