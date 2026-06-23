@@ -69,7 +69,7 @@
         </h1>
         <p style="margin-top:26px;font-size:19px;line-height:1.6;color:#CBBFA9;font-weight:300;max-width:500px">{{ heroSub }}</p>
         <div style="margin-top:36px;display:flex;flex-wrap:wrap;gap:14px;justify-content:{{ heroJustify }}">
-          <a href="#contacto" style="text-decoration:none;background:var(--acc);color:#0F0D0B;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:16px 30px;border-radius:999px" style-hover="background:var(--acc-soft)">{{ ctaBudget }}</a>
+          <a href="contacto.html" style="text-decoration:none;background:var(--acc);color:#0F0D0B;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:16px 30px;border-radius:999px" style-hover="background:var(--acc-soft)">{{ ctaBudget }}</a>
           <a href="#cajas" style="text-decoration:none;background:transparent;color:#EDE4D2;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:16px 28px;border-radius:999px;border:1px solid rgba(237,228,210,.28)" style-hover="border-color:var(--acc);color:var(--acc-soft)">{{ ctaCatalog }}</a>
         </div>
         <div style="margin-top:42px;display:flex;align-items:center;gap:30px;flex-wrap:wrap;justify-content:{{ heroJustify }}">
@@ -245,45 +245,6 @@
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section id="faq" style="max-width:900px;margin:0 auto;padding:96px 36px">
-    <div data-reveal style="text-align:center;margin-bottom:46px">
-      <div style="font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);margin-bottom:16px">{{ faqEyebrow }}</div>
-      <h2 style="font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(32px,4vw,50px);line-height:1.04;color:#F6EFE0">{{ faqTitle }}</h2>
-    </div>
-    <div data-reveal>
-      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
-        <details style="border-bottom:1px solid rgba(var(--acc-rgb),.16)">
-          <summary style="cursor:pointer;padding:22px 4px;display:flex;justify-content:space-between;align-items:center;gap:20px;font-size:17px;font-weight:500;color:#F2EBDC">{{ f.q }}<span style="color:var(--acc);font-size:24px;font-family:'Playfair Display',serif;flex:none;line-height:1">+</span></summary>
-          <div style="padding:0 4px 24px;font-size:15.5px;line-height:1.66;color:#A89A84;font-weight:300;max-width:720px">{{ f.a }}</div>
-        </details>
-      </sc-for>
-    </div>
-  </section>
-
-  <!-- blog -->
-  <section id="blog" style="max-width:1240px;margin:0 auto;padding:30px 36px 96px">
-    <div data-reveal style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:40px">
-      <div>
-        <div style="font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--acc);margin-bottom:16px">{{ blogEyebrow }}</div>
-        <h2 style="font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(32px,4vw,50px);line-height:1.04;color:#F6EFE0">{{ blogTitle }}</h2>
-      </div>
-      <a href="{{ blogUrl }}" target="_blank" rel="noopener" style="text-decoration:none;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);white-space:nowrap" style-hover="color:var(--acc-soft)">{{ blogAll }}</a>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
-      <sc-for list="{{ posts }}" as="p" hint-placeholder-count="3">
-        <a href="{{ p.href }}" target="_blank" rel="noopener" data-reveal data-reveal-delay="{{ p.delay }}" onMouseEnter="{{ zoomIn }}" onMouseLeave="{{ zoomOut }}" style="text-decoration:none;background:var(--panel);border:1px solid rgba(var(--acc-rgb),.14);border-radius:var(--card-r);overflow:hidden;display:flex;flex-direction:column;transition:border-color .4s ease,transform .4s ease" style-hover="border-color:rgba(var(--acc-rgb),.45);transform:translateY(-4px)">
-          <div style="position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--bg-deep)">{{ p.imgEl }}</div>
-          <div style="padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px">
-            <span style="font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)">{{ p.tag }}</span>
-            <h3 style="font-family:'Playfair Display',serif;font-weight:600;font-size:20px;line-height:1.2;color:#F2EBDC">{{ p.title }}</h3>
-            <span style="font-size:12.5px;color:#7E725D;letter-spacing:.03em">{{ p.date }}</span>
-          </div>
-        </a>
-      </sc-for>
-    </div>
-  </section>
-
   <!-- final CTA -->
   <section id="contacto" style="position:relative;background-image:linear-gradient(rgba(11,9,7,.86),rgba(11,9,7,.9)),url('assets/box-mixed.png');background-size:cover;background-position:center;border-top:1px solid rgba(var(--acc-rgb),.12)">
     <div data-reveal style="max-width:820px;margin:0 auto;padding:104px 36px;text-align:center">
@@ -292,7 +253,7 @@
       <p style="font-size:18px;line-height:1.6;color:#C3B69E;font-weight:300;max-width:540px;margin:0 auto 36px">{{ ctaSub }}</p>
       <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center">
         <a href="{{ shopUrl }}" target="_blank" rel="noopener" style="text-decoration:none;background:var(--acc);color:#0F0D0B;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:17px 34px;border-radius:999px" style-hover="background:var(--acc-soft)">{{ ctaBtn1 }}</a>
-        <a href="https://tbtastybox.com/contact/" target="_blank" rel="noopener" style="text-decoration:none;background:rgba(237,228,210,.06);color:#EDE4D2;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:17px 32px;border-radius:999px;border:1px solid rgba(237,228,210,.25)" style-hover="border-color:var(--acc)">{{ ctaBtn2 }}</a>
+        <a href="contacto.html" style="text-decoration:none;background:rgba(237,228,210,.06);color:#EDE4D2;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:17px 32px;border-radius:999px;border:1px solid rgba(237,228,210,.25)" style-hover="border-color:var(--acc)">{{ ctaBtn2 }}</a>
       </div>
     </div>
   </section>
