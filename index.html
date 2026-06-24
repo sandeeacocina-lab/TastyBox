@@ -160,7 +160,7 @@
             </div>
           </sc-for>
         </div>
-        <a href="{{ personalizeUrl }}" target="_blank" rel="noopener" style="align-self:flex-start;text-decoration:none;background:var(--acc);color:#0F0D0B;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:15px 28px;border-radius:999px" style-hover="background:var(--acc-soft)">{{ persCta }}</a>
+        <a href="{{ toolUrl }}" target="_blank" rel="noopener" style="align-self:flex-start;text-decoration:none;background:var(--acc);color:#0F0D0B;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:15px 28px;border-radius:999px" style-hover="background:var(--acc-soft)">{{ persCta }}</a>
       </div>
     </div>
   </section>
@@ -334,6 +334,7 @@ class Component extends DCLogic {
 
   renderVals() {
     const URLS = { personalize: 'personalizacion.html', shop: 'tienda.html', blog: 'blog.html' };
+    const TOOL_URL = 'https://art-igniter-pro.lovable.app/';
     const boxMeta = [
       { ref: 'REF. TBCG01', img: 'assets/prod-chocolate.png', buyUrl: 'https://buybuttons.sefed.es/buybuttons/es01ies11243/btn/300cbcce-a2e8-44c0-88f5-e20b5ce05f27/' },
       { ref: 'REF. TBQU01', img: 'assets/prod-queso.png', buyUrl: 'https://buybuttons.sefed.es/buybuttons/es01ies11243/btn/30c27b40-bc16-455b-a7b9-fbf0e11f5811/' },
@@ -582,7 +583,7 @@ class Component extends DCLogic {
     return {
       ...c,
       boxes, testimonials, posts, steps,
-      shopUrl: URLS.shop, blogUrl: URLS.blog, personalizeUrl: URLS.personalize,
+      shopUrl: URLS.shop, blogUrl: URLS.blog, personalizeUrl: URLS.personalize, toolUrl: TOOL_URL,
       pageStyle: { ...themeVars, background: 'var(--bg)', opacity: this.state.fading ? 0 : 1, transition: 'opacity .28s ease' },
       heroVAlign: heroV.vAlign, heroJustify: heroV.justify, heroOverlay: heroV.overlay, heroBlock,
       heroImgEl,
